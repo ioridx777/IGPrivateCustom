@@ -27,7 +27,7 @@ LocationMediaFeed.prototype.get = function () {
         .send()
         .then(function(data) {
             that.moreAvailable = data.more_available && !!data.next_max_id;
-            if (!that.moreAvailable && !_.isEmpty(data.ranked_items) && !that.getCursor())
+            if (!that.moreAvailable && !_.isEmpty(data.ranked_items) && _.isEmpty(data.items) && !that.getCursor())
                 throw new Exceptions.OnlyRankedItemsError;
             if (that.moreAvailable)
                 that.setCursor(data.next_max_id);
